@@ -1,0 +1,28 @@
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+
+\title{Objektorientierte Softwareentwicklung Blatt 5}
+\author{Gruppe I9}
+\date{}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\maketitle
+\section*{Aufgabe 3}
+Overloading bezeichnet das Definieren von einer Methoden selben Namens wie einer schon existente Methode  in einer (Unter-)Klasse, aber mit unterschiedlicher Signatur.\\
+Overriding bezeichnet das Definieren einer Methoden in einer (Unter-)Klasse mit gleichem Namen, gleicher Signatur, aber eventuell spezifischerem Ergebnistyp als eine schon existente Methode.\\
+Das Verfahren für die Auswahl der richtigen Methode nutzt eine Methodentabelle pro Klasse, in der die in der Klasse definierten Methoden indiziert werden. Methoden mit gleicher Signatur stehen am selben Methodentabellen-Index, es wird dann zur Laufzeit die spezifischste Methode ausgewaehlt. Beim Overloading haben Methoden gleichen Namens aber verschiedene Signatur unterschiedliche Methodentabellen-Indizes, da sie verschiedene Operationen darstellen. Hier wird zur Compiletime die spezifischste Methode ausgewählt.
+
+\section*{Aufgabe 4}
+Der Garbage Collector arbeitet in zwei Phasen: mark und sweep. In der Phase 'mark' wird der Stack von unten nach oben durchlaufen und markiert rekursive alle von den Referenzvariablen erreichbaren Objekte auf dem Heap. In der Phase 'sweep' werden diese markierten Objekte dann auf die 'free list' geschoben und die Markierung gelöscht.\\
+Vorteile gegenüber Sprachen ohne Garbage Collector:\\
+-Programmierer muss sich nicht um Speicherrückgabe kümmern\\
+-weniger umständlich\\
+-weniger Programmierfehler (Speicherlecks, Rückgabe von Speicher eines noch benutzten Objekts o.Ä.)\\
+Nachteile:\\
+-meist ineffizienter\\
+-Echtzeitanwendungen\\
+
+Man kann den Garbage Collector unterstüzen, indem man dynamische Erzeugung von Objekten möglichst vermeidet und versucht Objekte wiederzuverwenden.
+\end{document}

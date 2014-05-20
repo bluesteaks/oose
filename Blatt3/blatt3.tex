@@ -1,0 +1,107 @@
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+
+
+\title{Objektorientierte Softwareentwicklung Blatt 3}
+\author{Gruppe I9}
+\date{}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\maketitle \section*{Aufgabe 1}\textbf{(a)}
+Teilausdrücke:\\
+(i) $3+4$\quad\quad alles int, keine Typkonversion, Ergebnis int $7$\\
+(ii) $(3+4)*2$\quad\quad alles int, keine Typkonversion, Ergebnis int $14$\\
+(iii) $(3+4)*2/3$\quad\quad alles int, keine Typkonversion, Ergebnis int $4$\\
+(iv) $1+4.0$\quad\quad int $1$ und double $4.0$, int wird zu double konvertiert, Ergebnis double $5.0$\\
+(v) $((3+4)*2/3)/(1+4.0)$\quad\quad int $((3+4)*2/3)$, double $(1+4.0)$, int wird zu double konvertiert, Ergebnis double $0.8$\\\\
+
+\textbf{(b)}
+Teilausdrücke:\\
+(i) $4*2$\quad\quad alles int, keine Typkonversion, Ergebnis int $8$\\
+(ii) $(4*2)/9)$\quad\quad alles int, keine Typkonversion, Ergebnis int $0$\\
+(iii) $((4*2)/9)+3$\quad\quad alles int, keine Typkonversion, Ergebnis int $3$\\
+(iv) $(1.5+2.5)$\quad\quad alles double, keine Typkonversion, Ergebnis double $4.0$\\
+(v) $(((4*2)/9)+3)/(1.5+2.5)$\quad\quad Zähler int, Nenner double, int wird zu double konvertiert, Ergebnis double $0.75$
+
+\textbf{(c)}
+Teilausdrücke:\\(1.5-0.5)*((13/2+5)/2)
+(i) $1.5-0.5$\quad\quad alles double, keine Typkonversion, Ergebnis double $1.0$\\
+(ii) $13/2$\quad\quad alles int, keine Typkonversion, Ergebnis int $6$\\
+(iii) $13/2+5$\quad\quad alles int, keine Typkonversion, Ergebnis int $11$\\
+(iv) $(13/2+5)/2$\quad\quad alles int, keine Typkonversion, Ergebnis int $5$\\
+(v) $(1.5-0.5)*((13/2+5)/2)$\quad\quad erster Faktor double, zweiter int, int wird zu double konvertiert, Ergebnis double $5.0$
+
+\maketitle \section*{Aufgabe 2}
+Code:
+\begin{lstlisting}[frame=single]
+if(6.5f==6.5)
+	System.out.println("6.5f==6.5");
+if(6.4f==6.4)
+	System.out.println("6.4f==6.4");
+\end{lstlisting}
+
+Output:
+\begin{lstlisting}[frame=single]
+6.5f==6.5
+\end{lstlisting}
+
+Grund: In Java float $6.5f$ ist float, $6.5$ ist double. Da float eine 32bit Darstellung ist und double 64bit, haben wir für double eine genauere Darstellung von Zahlen, die keine exakte Binärdarstellung haben. Die Binärdarstellung von ist $110.1$, also sind sie in float und double gleich. Die Binärdarstellung von $6.4$ ist $110.011001100110011...$. Da mit double eine höhere Genauigkeit, also eine höhere Anzahl von Nachkommastellen möglich ist, sind $6.4f$ und $6.4$ nicht gleich.
+
+\maketitle \section*{Aufgabe 3}
+\textbf{(a)}
+Implizite Konversionen:\\
+(i) von byte nach short, int, long, float, double\\
+(ii) von short nach int, long, float, double\\
+(iii) von char nach int, long, float, double\\
+(iv) von int nach long, float, double\\
+(v) von long nach float, double\\
+(vi) von float nach double\\\\
+
+\textbf{(b)}
+Verlust kann Auftreten bei der Konversion von int bzw long nach float, und von long nach double. Der Grund ist, dass int bzw. long $32$ bit bzw. $64$ bit sind, aber float eine $23$ bit Mantisse hat, das heißt bei allen Integern bzw. Longs größer als $2^{23}$ werden die niedrigwertigsten bits abgeschnitten.
+Analog hat double eine $52$ bit Mantisse, also werden bei allen Longs größer als $2^{52}$ die niedrigwertigsten bits abgeschnitten.\\\\
+
+\textbf{(c)}
+Seien $A$ und $B$ zwei Typen, sein $a$ von Typ $A$. Wir konvertieren $a$ zu Typ $B$ durch $(B) a$.
+Probleme gibt es z.B. wenn $A$ Supertyp von $B$ ist, denn dann kann konvertieren von Typ $A$ nach $B$ Fehler erzeugen: \begin{lstlisting}[frame=single]
+public class Animal {...}
+public class Dog extends Animal {...}
+
+Animal animal = new Animal();
+Dog dog = (Dog) animal;
+\end{lstlisting}
+
+wird einen Fehler werfen, denn nicht jedes Tier ist ein Hund.
+\\\\
+\maketitle \section*{Aufgabe 4}
+\textbf{(a)}
+\begin{lstlisting}[frame=single]
+if(key==1){I();}
+else if(key==3){J();K();}
+else if(key==4){K();}
+else if(key==5 || key==6){L();}
+else if(key==7){M();N();}
+else {N();}
+\end{lstlisting}
+
+\textbf{(b)}
+\begin{lstlisting}[frame=single]
+1: int i = -1;			//1 Mal
+2: out: while (true) { 		//5 Mal
+3: 	i++; 			//5 Mal
+4: 	int j = -i; 		//5 Mal
+5: 	if (i > 6)		//5 Mal
+6:	break;			//1 Mal
+7: 	if (j < -3)		//4 Mal
+8: 	continue;		//2 Mal
+9: 	i += 1;			//4 Mal
+10: 	in: while (i == -1) {	//4 Mal
+11: 	i = -1;			//0 Mal
+12: 	break out;		//0 Mal
+	}
+}
+\end{lstlisting}
+\end{document}
