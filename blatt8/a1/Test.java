@@ -26,7 +26,8 @@ class W extends V {
 		return x;
 	}
 
-	void setX (int y ) {x = y;
+	void setX (int y ) {
+		x = y;
 		System.out.println("W::setX("+y+") aufgerufen");
 	}
 
@@ -45,8 +46,11 @@ public class Test {
 	W w=new W();
 	v.setX(15);
 	v.x=22;
+	System.out.println((v).x);
+
 	v.f();
 	v.g();
+	System.out.println();
 	//compile error (v hat kein h)
 	//v.h();
 	w.f();
@@ -54,6 +58,8 @@ public class Test {
 	w.h();
 	v.getX();
 	w.getX();
+	System.out.println();
+	System.out.println();
 
 	//compile error
 	//V r= new V(); r.h();

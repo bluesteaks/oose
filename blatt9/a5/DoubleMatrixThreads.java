@@ -36,7 +36,8 @@ class DoubleMatrix{
 		System.out.println();
 	}
 
-	/** Empfänger mit Matrix B multiplizieren, gibt Fehler bei inkompatiblen Dimensionen
+	/** 
+	* Empfänger mit Matrix B multiplizieren, gibt Fehler bei inkompatiblen Dimensionen
 	* @return Produktmatrix
 	*/
 	public DoubleMatrix matrixMult(DoubleMatrix B, int numThreads) {
@@ -55,6 +56,9 @@ class DoubleMatrix{
 		Thread[] t = new Thread[numThreads];
 		for(int i=0;i<numThreads;i++)
 			t[i]= new Thread(new DotProduct(this,B,C,cells));
+
+		for(int i=0;i<numThreads;i++)
+			t[i].start();
 
 		for(int i=0;i<numThreads;i++)
 			try{t[i].join();} catch(InterruptedException ex) {}
@@ -127,8 +131,8 @@ class DotProduct implements Runnable {
 
 public class DoubleMatrixThreads {
 	public static void main(String args[]){
-		double[][] array=new double[200][200];
-		double[][] array2=new double[200][200];
+		double[][] array=new double[800][800];
+		double[][] array2=new double[800][800];
 
 		for (int i = 0; i < array.length; i++) {
 		    for (int j = 0; j < array[i].length; j++) {
